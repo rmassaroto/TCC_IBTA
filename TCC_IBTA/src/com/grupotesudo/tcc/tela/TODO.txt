@@ -1,0 +1,1 @@
+A tela está praticamente pronta, preciso fazer o server saber diferenciar pra qual tela mandar as coordenadas;

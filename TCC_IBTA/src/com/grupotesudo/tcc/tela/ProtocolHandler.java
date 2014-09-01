@@ -1,8 +1,5 @@
 package com.grupotesudo.tcc.tela;
 
-import java.awt.Point;
-import java.awt.geom.Point2D;
-
 public class ProtocolHandler {
 	
 //	Sevidor -> Tela
@@ -21,7 +18,7 @@ public class ProtocolHandler {
 	 * @return the extracted time from the message
 	 */
 	public static long getReceivedTime(String message) {
-		String contents[] = message.split("|");
+		String contents[] = message.split(";");
 		
 		return Long.parseLong(contents[0]);
 	}
@@ -29,12 +26,15 @@ public class ProtocolHandler {
 	/**
 	 * Extracts and returns the coordinates received from the server message
 	 * @param message received from the server
-	 * @return the extracted coordinates in Point2D 
+	 * @return the extracted coordinates in a Point object 
 	 */
-	public static Point2D getReceivedCoordinates(String message) {
-		String contents[] = message.split("|");
+	public static Point extractCoordinates(String message) {
+		String contents[] = message.split(";");
+		Point point = new Point();
+		point.setX(Integer.parseInt(contents[1]));
+		point.setY(Integer.parseInt(contents[2]));
 		
-		return new Point(Integer.parseInt(contents[1]), Integer.parseInt(contents[1]));
+		return point;
 	}
 	
 	/**
@@ -44,8 +44,8 @@ public class ProtocolHandler {
 	 * @return the prepared message to be sent to the server
 	 */
 	public static String prepareMessageToSend(long receivedTime, long sentTime) {
-		String message = "|" + Long.toString(receivedTime)
-				+ "|" + Long.toString(sentTime) + "|";
+		String message = Long.toString(receivedTime)
+				+ ";" + Long.toString(sentTime) + ";";
 		
 		return message;
 	}
